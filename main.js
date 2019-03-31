@@ -61,9 +61,9 @@ function canActivatePrestige(x,y,z) {
 		(y!==0 && data.prestiges[x][y-1][z] >= getRequirement(x,y,z)) ||
 		(z!==0 && data.prestiges[x][y][z-1] >= getRequirement(x,y,z))
 		) {
-		return false;
+		return true;
 	}
-	return true;
+	return false;
 }
 
 function activatePrestige(x,y,z) {
@@ -92,6 +92,7 @@ function update() {
 
 function draw() {
 	document.getElementById("coins").innerHTML = data.coins;
+	document.getElementById("layer").innerHTML = layer;
 	document.getElementById("gain").innerHTML = getGain();
 	for (let i = 0; i < 10; i++) {
 		for (let j = 0; j < 10; j++) {
@@ -102,24 +103,23 @@ function draw() {
 }
 
 function updateDescriptionsAndNames() {
-	let z =0; //temp
 	descriptions = (()=>{
 		let a=[];
 		for (var x = 0; x < 10; x++) {
 			a[x] = [];
 			for (var y = 0; y < 10; y++) {
-				a[x][y] = "Tier("+x+","+y+","+z+"): "+names[x]+names[y]+names[z]+"prestige\r\nPrestige requirements:";
-				if (x===0 && y===0 && z===0) {
-					a[x][y] += "\r\n" + getRequirement(x,y,z) + " coins";
+				a[x][y] = "Tier("+x+","+y+","+layer+"): "+names[x]+names[y]+names[layer]+"prestige\r\nPrestige requirements:";
+				if (x===0 && y===0 && layer===0) {
+					a[x][y] += "\r\n" + getRequirement(x,y,layer) + " coins";
 				}
 				if (x!==0) {
-					a[x][y] += "\r\n" + getRequirement(x,y,z) +" of tier("+x+","+y+","+z+")";
+					a[x][y] += "\r\n" + getRequirement(x,y,layer) +" of tier("+(x-1)+","+y+","+layer+")";
 				}
 				if (y!==0) {
-					a[x][y] += "\r\n" + getRequirement(x,y,z) +" of tier("+x+","+y+","+z+")";
+					a[x][y] += "\r\n" + getRequirement(x,y,layer) +" of tier("+x+","+(y-1)+","+layer+")";
 				}
-				if (z!==0) {
-					a[x][y] += "\r\n" + getRequirement(x,y,z) +" of tier("+x+","+y+","+z+")";
+				if (layer!==0) {
+					a[x][y] += "\r\n" + getRequirement(x,y,layer) +" of tier("+x+","+y+","+(layer-1)+")";
 				}
 			}
 		}
@@ -128,8 +128,8 @@ function updateDescriptionsAndNames() {
 }
 
 window.addEventListener("load",function () {
-	if (localStorage.QUADRATIC_SHITPOST) {
-		data = JSON.parse(localStorage.QUADRATIC_SHITPOST)
+	if (localStorage.OH_NO) {
+		data = JSON.parse(localStorage.OH_NO)
 	}
 	let table = document.getElementById("buyables");
 	updateDescriptionsAndNames();
@@ -166,6 +166,20 @@ window.addEventListener("load",function () {
 		}
 		table.appendChild(tr);
 	}
+	document.getElementById("layer_prev").addEventListener("click", function(){
+		if (layer > 0) {
+			layer--;
+			updateDescriptionsAndNames();
+			draw();
+		}
+	});
+	document.getElementById("layer_next").addEventListener("click", function(){
+		if (layer < 9) {
+			layer++;
+			updateDescriptionsAndNames();
+			draw();
+		}
+	});
 	draw();
 	setInterval(function () {
 		update();

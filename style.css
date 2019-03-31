@@ -11,6 +11,7 @@ button {
 	width: 64px;
 	padding: 1px;
 	margin: 5px;
+	line-height: 1.2;
 }
 
 #tooltip {

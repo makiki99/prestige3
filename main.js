@@ -72,7 +72,7 @@ function activatePrestige(x,y,z) {
 		data.coins = 0;
 		for (let i = 0; i <= x; i++) {
 			for (let j = 0; j <= y; j++) {
-				for (let k = 0; k <= y; k++) {
+				for (let k = 0; k <= z; k++) {
 					if (!(i === x && j === y && k === z)) {
 						data.prestiges[i][j][k] = 0;
 					}

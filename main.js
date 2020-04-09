@@ -69,7 +69,7 @@ function canActivatePrestige(x,y,z) {
 }
 
 function activatePrestige(x,y,z) {
-	console.log(x,y,z);
+	//console.log(x,y,z);
 	if (canActivatePrestige(x,y,z)) {
 		data.coins = 0;
 		for (let i = 0; i <= x; i++) {
@@ -190,5 +190,5 @@ window.addEventListener("load",function () {
 		update();
 		draw();
 	}, 1000);
-	console.log("interval loaded")
+	//console.log("interval loaded")
 })

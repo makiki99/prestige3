@@ -81,7 +81,7 @@ function activatePrestige(x,y,z) {
 				}
 			}
 		}
-		data.prestiges[x][y][layer]++;
+		data.prestiges[x][y][z]++;
 		updateDescriptionsAndNames();
 	}
 	draw();

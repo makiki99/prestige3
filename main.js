@@ -64,7 +64,7 @@ function getPPBonus() {
         temp.forEach(function (el) {
             out *= 1+el;
         });
-        return out*getPPBonus();
+        return out;
     }
     return 1;
 }
@@ -78,7 +78,7 @@ function getGain() {
 			}
 		}
 	}
-	return gain*metaBonus;
+	return gain*metaBonus*getPPBonus();
 }
 
 function getRequirement(x,y,z) {
